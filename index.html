@@ -1,113 +1,701 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="dark">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Student Grade Management System</title>
+    <title>AcademiaPro — Java OOP Student Grade Management System</title>
+    <meta name="description" content="Java Object-Oriented Programming (OOP) Academic Grade Management & Analytics Dashboard." />
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&family=Fira+Code:wght@400;500;600&display=swap" rel="stylesheet" />
+    
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+    
+    <!-- Chart.js CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    
+    <!-- Custom CSS -->
     <link rel="stylesheet" href="styles.css" />
   </head>
   <body>
+    <!-- Background Glow Blobs -->
+    <div class="glow-orb glow-orb-1" aria-hidden="true"></div>
+    <div class="glow-orb glow-orb-2" aria-hidden="true"></div>
+
     <div class="app-shell">
-      <header class="hero">
-        <div>
-          <p class="eyebrow">Smart Academic Dashboard</p>
-          <h1>Student Grade Management System</h1>
-          <p class="hero-text">
-            Add students, assign marks, calculate grades, and monitor class performance in one place.
-          </p>
+      <!-- Top Navigation Header -->
+      <header class="app-header">
+        <div class="brand-container">
+          <div class="brand-logo">
+            <i class="fa-brands fa-java"></i>
+          </div>
+          <div>
+            <div class="brand-badge">
+              <span class="pulse-dot"></span> JAVA 25 &bull; OBJECT-ORIENTED ARCHITECTURE
+            </div>
+            <h1>AcademiaPro <span class="gradient-text">Java OOP Grade Manager</span></h1>
+            <p class="brand-tagline">Academic Performance Engine built with Encapsulation, Inheritance, Polymorphism & Abstraction</p>
+          </div>
+        </div>
+
+        <div class="header-actions">
+          <div class="backend-status-badge" id="backendBadge">
+            <i class="fa-brands fa-java"></i> <span id="backendStatusText">Java OOP Engine Active</span>
+          </div>
+          <button id="oopArchitectureBtn" class="btn btn-secondary" title="View Java OOP Architecture & UML">
+            <i class="fa-solid fa-cubes"></i> <span>Java OOP Design & UML</span>
+          </button>
+          <button id="themeToggleBtn" class="btn-icon" title="Toggle Light/Dark Theme" aria-label="Toggle Theme">
+            <i class="fa-solid fa-moon" id="themeIcon"></i>
+          </button>
+          <button id="demoDataBtn" class="btn btn-outline" title="Load Sample Data">
+            <i class="fa-solid fa-database"></i> <span>Load Demo Data</span>
+          </button>
+          <button id="exportCsvBtn" class="btn btn-primary" title="Export as CSV">
+            <i class="fa-solid fa-file-arrow-down"></i> <span>Export CSV</span>
+          </button>
         </div>
       </header>
 
-      <main class="dashboard">
-        <section class="panel">
-          <div class="panel-header">
-            <h2>Add New Student</h2>
-            <span class="badge">Register</span>
+      <!-- OOP Pillars Highlight Banner -->
+      <section class="oop-pillars-strip">
+        <div class="oop-pillar-pill" title="Private attributes with getters, setters and input range validations">
+          <i class="fa-solid fa-shield-halved text-cyan"></i>
+          <div>
+            <strong>Encapsulation</strong>
+            <small>SubjectMarks & Student Models</small>
           </div>
-          <form id="studentForm" class="stack-form">
-            <label>
-              Student Name
-              <input id="studentName" type="text" placeholder="Enter full name" required />
-            </label>
-            <label>
-              Roll Number
-              <input id="rollNumber" type="text" placeholder="e.g. 101" required />
-            </label>
-            <button type="submit">Add Student</button>
-          </form>
-          <p id="studentMessage" class="message" aria-live="polite"></p>
-        </section>
+        </div>
+        <div class="oop-pillar-pill" title="Student class inherits core identity properties from abstract Person">
+          <i class="fa-solid fa-sitemap text-indigo"></i>
+          <div>
+            <strong>Inheritance</strong>
+            <small>Student extends Person</small>
+          </div>
+        </div>
+        <div class="oop-pillar-pill" title="Comparable interface rank ordering and GradingStrategy polymorphism">
+          <i class="fa-solid fa-arrows-split-up-and-left text-violet"></i>
+          <div>
+            <strong>Polymorphism</strong>
+            <small>GradingStrategy & Comparable</small>
+          </div>
+        </div>
+        <div class="oop-pillar-pill" title="Abstract base class and GradingStrategy interface hiding business complexity">
+          <i class="fa-solid fa-layer-group text-amber"></i>
+          <div>
+            <strong>Abstraction</strong>
+            <small>Abstract Person & Interfaces</small>
+          </div>
+        </div>
+      </section>
 
-        <section class="panel">
-          <div class="panel-header">
-            <h2>Assign Marks</h2>
-            <span class="badge">Evaluation</span>
+      <!-- KPI Metrics Overview Grid -->
+      <section class="kpi-grid" aria-label="Key Performance Indicators">
+        <div class="kpi-card glass-card">
+          <div class="kpi-icon icon-blue">
+            <i class="fa-solid fa-users"></i>
           </div>
-          <form id="marksForm" class="stack-form">
-            <label>
-              Select Student
-              <select id="studentSelect" required></select>
-            </label>
-            <div class="grid-fields">
-              <label>
-                Mathematics
-                <input id="maths" type="number" min="0" max="100" step="0.1" required />
-              </label>
-              <label>
-                Science
-                <input id="science" type="number" min="0" max="100" step="0.1" required />
-              </label>
-              <label>
-                English
-                <input id="english" type="number" min="0" max="100" step="0.1" required />
-              </label>
+          <div class="kpi-content">
+            <span class="kpi-label">Total Enrolled</span>
+            <h3 class="kpi-value" id="kpiTotalStudents">0</h3>
+            <span class="kpi-trend" id="kpiActiveTrend"><i class="fa-solid fa-circle-check"></i> Java Memory List</span>
+          </div>
+        </div>
+
+        <div class="kpi-card glass-card">
+          <div class="kpi-icon icon-emerald">
+            <i class="fa-solid fa-trophy"></i>
+          </div>
+          <div class="kpi-content">
+            <span class="kpi-label">Top Performer (Rank 1)</span>
+            <h3 class="kpi-value truncate-text" id="kpiTopperName">—</h3>
+            <span class="kpi-badge badge-emerald" id="kpiTopperScore">No records</span>
+          </div>
+        </div>
+
+        <div class="kpi-card glass-card">
+          <div class="kpi-icon icon-violet">
+            <i class="fa-solid fa-chart-line"></i>
+          </div>
+          <div class="kpi-content">
+            <span class="kpi-label">Class Average Score</span>
+            <h3 class="kpi-value" id="kpiClassAverage">0%</h3>
+            <span class="kpi-badge badge-violet" id="kpiClassCgpa">CGPA: 0.0</span>
+          </div>
+        </div>
+
+        <div class="kpi-card glass-card">
+          <div class="kpi-icon icon-amber">
+            <i class="fa-solid fa-user-check"></i>
+          </div>
+          <div class="kpi-content">
+            <span class="kpi-label">Overall Pass Rate</span>
+            <h3 class="kpi-value" id="kpiPassRate">0%</h3>
+            <span class="kpi-subtext" id="kpiPassCount">0 passed</span>
+          </div>
+        </div>
+
+        <div class="kpi-card glass-card">
+          <div class="kpi-icon icon-cyan">
+            <i class="fa-solid fa-medal"></i>
+          </div>
+          <div class="kpi-content">
+            <span class="kpi-label">Distinction (>=75%)</span>
+            <h3 class="kpi-value" id="kpiDistinctionRate">0%</h3>
+            <span class="kpi-subtext" id="kpiDistinctionCount">0 students</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- Split Workflow Grid: Registration & Evaluation -->
+      <section class="forms-split-grid">
+        <!-- 1. Register New Student Panel -->
+        <div class="panel glass-card">
+          <div class="panel-header">
+            <div class="panel-title-group">
+              <div class="panel-icon icon-blue"><i class="fa-solid fa-user-plus"></i></div>
+              <div>
+                <h2>Register Student</h2>
+                <p class="panel-desc">Instantiates a new <code>Student</code> entity extending <code>Person</code></p>
+              </div>
             </div>
-            <button type="submit">Save Marks</button>
+            <span class="badge badge-outline">Step 1 &bull; OOP Model</span>
+          </div>
+
+          <form id="studentForm" class="academic-form">
+            <div class="form-row">
+              <div class="form-group flex-2">
+                <label for="studentName"><i class="fa-solid fa-user"></i> Student Full Name <span class="req">*</span></label>
+                <input id="studentName" type="text" placeholder="e.g. Elena Rostova" required autocomplete="off" />
+              </div>
+              <div class="form-group flex-1">
+                <label for="rollNumber"><i class="fa-solid fa-id-card"></i> Roll No <span class="req">*</span></label>
+                <input id="rollNumber" type="text" placeholder="e.g. 101" required autocomplete="off" />
+              </div>
+            </div>
+
+            <div class="form-row">
+              <div class="form-group flex-1">
+                <label for="studentClass"><i class="fa-solid fa-school"></i> Class / Section</label>
+                <input id="studentClass" type="text" placeholder="e.g. Grade 10-A" value="Grade 10-A" />
+              </div>
+              <div class="form-group flex-1">
+                <label for="studentAttendance"><i class="fa-solid fa-calendar-check"></i> Attendance (%)</label>
+                <input id="studentAttendance" type="number" min="0" max="100" placeholder="e.g. 95" value="95" />
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label for="studentEmail"><i class="fa-solid fa-envelope"></i> Contact Email</label>
+              <input id="studentEmail" type="email" placeholder="e.g. elena.rostova@academia.edu" />
+            </div>
+
+            <button type="submit" class="btn btn-primary btn-block btn-lg">
+              <i class="fa-solid fa-plus"></i> Instantiate & Save Student
+            </button>
           </form>
-          <p id="marksMessage" class="message" aria-live="polite"></p>
-        </section>
+        </div>
 
-        <section class="summary-grid">
-          <article class="summary-card">
-            <h3>Total Students</h3>
-            <p id="totalStudents">0</p>
-          </article>
-          <article class="summary-card">
-            <h3>Topper</h3>
-            <p id="topperName">—</p>
-          </article>
-          <article class="summary-card">
-            <h3>Class Average</h3>
-            <p id="classAverage">—</p>
-          </article>
-        </section>
-
-        <section class="panel table-panel">
+        <!-- 2. Assign & Update Marks Panel -->
+        <div class="panel glass-card">
           <div class="panel-header">
-            <h2>Student Performance</h2>
-            <span class="badge">Live Report</span>
+            <div class="panel-title-group">
+              <div class="panel-icon icon-violet"><i class="fa-solid fa-clipboard-check"></i></div>
+              <div>
+                <h2>Assign & Record Marks</h2>
+                <p class="panel-desc">Updates encapsulated <code>SubjectMarks</code> with input range checks</p>
+              </div>
+            </div>
+            <span class="badge badge-outline">Step 2 &bull; Encapsulation</span>
           </div>
-          <div class="table-wrapper">
-            <table>
-              <thead>
-                <tr>
-                  <th>Name</th>
-                  <th>Roll</th>
-                  <th>Math</th>
-                  <th>Science</th>
-                  <th>English</th>
-                  <th>Average</th>
-                  <th>Grade</th>
-                  <th>Status</th>
-                </tr>
-              </thead>
-              <tbody id="studentTableBody"></tbody>
-            </table>
+
+          <form id="marksForm" class="academic-form">
+            <div class="form-group">
+              <label for="studentSelect"><i class="fa-solid fa-user-graduate"></i> Select Enrolled Student <span class="req">*</span></label>
+              <select id="studentSelect" required>
+                <option value="">-- Choose a student from roster --</option>
+              </select>
+            </div>
+
+            <div class="subject-inputs-grid">
+              <div class="form-group subject-box">
+                <label for="maths"><i class="fa-solid fa-calculator"></i> Mathematics</label>
+                <input id="maths" class="mark-input" type="number" min="0" max="100" step="0.5" placeholder="0 - 100" required />
+              </div>
+              <div class="form-group subject-box">
+                <label for="science"><i class="fa-solid fa-flask"></i> Science</label>
+                <input id="science" class="mark-input" type="number" min="0" max="100" step="0.5" placeholder="0 - 100" required />
+              </div>
+              <div class="form-group subject-box">
+                <label for="english"><i class="fa-solid fa-book-open"></i> English</label>
+                <input id="english" class="mark-input" type="number" min="0" max="100" step="0.5" placeholder="0 - 100" required />
+              </div>
+              <div class="form-group subject-box">
+                <label for="computer"><i class="fa-solid fa-laptop-code"></i> Comp Sci</label>
+                <input id="computer" class="mark-input" type="number" min="0" max="100" step="0.5" placeholder="0 - 100" required />
+              </div>
+              <div class="form-group subject-box">
+                <label for="social"><i class="fa-solid fa-earth-americas"></i> Social Studies</label>
+                <input id="social" class="mark-input" type="number" min="0" max="100" step="0.5" placeholder="0 - 100" required />
+              </div>
+            </div>
+
+            <!-- Live Score Calculation Preview -->
+            <div class="live-calculation-bar" id="liveCalcBar">
+              <div class="calc-item">
+                <span>Total:</span>
+                <strong id="liveTotalPreview">0 / 500</strong>
+              </div>
+              <div class="calc-item">
+                <span>Avg / %:</span>
+                <strong id="livePercentPreview">0.0%</strong>
+              </div>
+              <div class="calc-item">
+                <span>Est. Grade:</span>
+                <span class="badge" id="liveGradePreview">N/A</span>
+              </div>
+            </div>
+
+            <button type="submit" class="btn btn-secondary btn-block btn-lg">
+              <i class="fa-solid fa-floppy-disk"></i> Compute via GradingStrategy
+            </button>
+          </form>
+        </div>
+      </section>
+
+      <!-- Analytics & Visual Charts Section -->
+      <section class="charts-section">
+        <div class="panel glass-card">
+          <div class="panel-header">
+            <div class="panel-title-group">
+              <div class="panel-icon icon-cyan"><i class="fa-solid fa-chart-column"></i></div>
+              <div>
+                <h2>Subject-wise Performance Analytics</h2>
+                <p class="panel-desc">Aggregated subject metrics generated by <code>StudentManagementSystem</code></p>
+              </div>
+            </div>
           </div>
-        </section>
-      </main>
+          <div class="chart-container">
+            <canvas id="subjectPerformanceChart"></canvas>
+          </div>
+        </div>
+
+        <div class="panel glass-card">
+          <div class="panel-header">
+            <div class="panel-title-group">
+              <div class="panel-icon icon-amber"><i class="fa-solid fa-chart-pie"></i></div>
+              <div>
+                <h2>Grade Distribution Breakdown</h2>
+                <p class="panel-desc">Cohorts evaluated using <code>StandardGradingStrategy</code></p>
+              </div>
+            </div>
+          </div>
+          <div class="chart-container">
+            <canvas id="gradeDistributionChart"></canvas>
+          </div>
+        </div>
+      </section>
+
+      <!-- Student Records & Detailed Performance Table -->
+      <section class="panel glass-card table-master-panel">
+        <div class="table-top-bar">
+          <div class="table-heading-wrap">
+            <div class="panel-icon icon-blue"><i class="fa-solid fa-table-list"></i></div>
+            <div>
+              <h2>Enrolled Student Records & Performance Matrix</h2>
+              <p class="panel-desc">Rank-ordered via <code>Comparable&lt;Student&gt;</code> with instant search, filtering, report card generation, and editing</p>
+            </div>
+          </div>
+
+          <div class="table-filters-wrap">
+            <!-- Search Box -->
+            <div class="search-box">
+              <i class="fa-solid fa-magnifying-glass search-icon"></i>
+              <input type="text" id="tableSearchInput" placeholder="Search by name, roll, class, email..." />
+              <button id="clearSearchBtn" class="clear-search-btn" title="Clear search" style="display: none;">
+                <i class="fa-solid fa-xmark"></i>
+              </button>
+            </div>
+
+            <!-- Grade Filter -->
+            <div class="filter-group">
+              <label for="gradeFilterSelect"><i class="fa-solid fa-filter"></i></label>
+              <select id="gradeFilterSelect">
+                <option value="ALL">All Grades</option>
+                <option value="A+">Grade A+ (&ge;90%)</option>
+                <option value="A">Grade A (80-89%)</option>
+                <option value="B+">Grade B+ (70-79%)</option>
+                <option value="B">Grade B (60-69%)</option>
+                <option value="C">Grade C (50-59%)</option>
+                <option value="D">Grade D (40-49%)</option>
+                <option value="F">Grade F (&lt;40%)</option>
+              </select>
+            </div>
+
+            <!-- Status Filter -->
+            <div class="filter-group">
+              <select id="statusFilterSelect">
+                <option value="ALL">All Status</option>
+                <option value="Distinction">Distinction (&ge;75%)</option>
+                <option value="Pass">Pass</option>
+                <option value="Fail">Fail</option>
+              </select>
+            </div>
+
+            <!-- Sort Filter -->
+            <div class="filter-group">
+              <select id="sortBySelect">
+                <option value="rank_asc">Sort: Rank (High to Low)</option>
+                <option value="pct_desc">Sort: Highest Marks</option>
+                <option value="pct_asc">Sort: Lowest Marks</option>
+                <option value="name_asc">Sort: Name (A &rarr; Z)</option>
+                <option value="roll_asc">Sort: Roll Number</option>
+              </select>
+            </div>
+
+            <button id="resetFiltersBtn" class="btn btn-sm btn-outline" title="Reset all filters">
+              <i class="fa-solid fa-arrows-rotate"></i> Reset
+            </button>
+          </div>
+        </div>
+
+        <!-- Table Responsive Wrapper -->
+        <div class="table-wrapper">
+          <table class="academic-table" id="studentDataTable">
+            <thead>
+              <tr>
+                <th>Rank</th>
+                <th>Student Profile</th>
+                <th>Roll No</th>
+                <th>Class</th>
+                <th class="text-center">Math</th>
+                <th class="text-center">Science</th>
+                <th class="text-center">English</th>
+                <th class="text-center">Comp Sci</th>
+                <th class="text-center">Social</th>
+                <th class="text-center">Total (500)</th>
+                <th class="text-center">Percentage</th>
+                <th class="text-center">GPA</th>
+                <th class="text-center">Grade</th>
+                <th class="text-center">Status</th>
+                <th class="text-right">Actions</th>
+              </tr>
+            </thead>
+            <tbody id="studentTableBody">
+              <!-- Dynamically populated rows -->
+            </tbody>
+          </table>
+        </div>
+
+        <!-- Table Footer / Summary Bar -->
+        <div class="table-footer-bar">
+          <div class="table-count-text" id="tableRecordCount">
+            Showing 0 of 0 students
+          </div>
+          <div class="table-footer-actions">
+            <button id="clearAllDataBtn" class="btn btn-sm btn-danger-outline">
+              <i class="fa-solid fa-trash-can"></i> Clear All Records
+            </button>
+          </div>
+        </div>
+      </section>
+
+      <!-- Footer -->
+      <footer class="app-footer">
+        <p>AcademiaPro &bull; Java OOP Grade Management System &bull; Clean Architecture &bull; Local & Java Server Sync</p>
+      </footer>
     </div>
 
+    <!-- MODAL: Java OOP Architecture & UML Diagram Modal -->
+    <div class="modal-backdrop" id="oopArchitectureModal" aria-hidden="true">
+      <div class="modal-dialog oop-modal-dialog">
+        <div class="modal-header">
+          <div class="modal-title-wrap">
+            <i class="fa-brands fa-java text-accent" style="font-size: 1.6rem;"></i>
+            <h3>Java OOP Architecture & Class UML Diagram</h3>
+          </div>
+          <button class="modal-close-btn" id="closeOopModalBtn" aria-label="Close modal">&times;</button>
+        </div>
+
+        <div class="modal-body">
+          <div class="oop-uml-container">
+            <h4 class="oop-section-title"><i class="fa-solid fa-diagram-project"></i> Class Hierarchy & Design Pattern (UML)</h4>
+            
+            <div class="uml-diagram-visual">
+              <div class="uml-class-card">
+                <div class="uml-header abstract-class">&laquo;abstract&raquo; Person</div>
+                <div class="uml-body">
+                  <div class="uml-member">- id: String</div>
+                  <div class="uml-member">- name: String</div>
+                  <div class="uml-member">- email: String</div>
+                  <hr class="uml-divider" />
+                  <div class="uml-member">+ getId(): String</div>
+                  <div class="uml-member">+ getName(): String</div>
+                  <div class="uml-member">+ getEmail(): String</div>
+                  <div class="uml-member"><em>+ getRoleDescription()*: String</em></div>
+                </div>
+              </div>
+
+              <div class="uml-arrow">&uarr; inherits</div>
+
+              <div class="uml-class-card">
+                <div class="uml-header">Student (implements Comparable)</div>
+                <div class="uml-body">
+                  <div class="uml-member">- rollNumber: String</div>
+                  <div class="uml-member">- studentClass: String</div>
+                  <div class="uml-member">- attendance: int</div>
+                  <div class="uml-member">- marks: SubjectMarks</div>
+                  <div class="uml-member">- rank: int</div>
+                  <hr class="uml-divider" />
+                  <div class="uml-member">+ getTotalMarks(): double</div>
+                  <div class="uml-member">+ getPercentage(): double</div>
+                  <div class="uml-member">+ getGpa(): double</div>
+                  <div class="uml-member">+ getGrade(): String</div>
+                  <div class="uml-member">+ compareTo(other): int</div>
+                </div>
+              </div>
+            </div>
+
+            <div class="uml-relations-grid">
+              <div class="uml-class-card">
+                <div class="uml-header">&laquo;interface&raquo; GradingStrategy</div>
+                <div class="uml-body">
+                  <div class="uml-member">+ calculateGrade(pct): String</div>
+                  <div class="uml-member">+ calculateGpa(pct): double</div>
+                  <div class="uml-member">+ evaluateStatus(pct): String</div>
+                </div>
+              </div>
+
+              <div class="uml-class-card">
+                <div class="uml-header">SubjectMarks (Encapsulation)</div>
+                <div class="uml-body">
+                  <div class="uml-member">- mathematics: double</div>
+                  <div class="uml-member">- science: double</div>
+                  <div class="uml-member">- english: double</div>
+                  <div class="uml-member">- computerScience: double</div>
+                  <div class="uml-member">- socialStudies: double</div>
+                  <hr class="uml-divider" />
+                  <div class="uml-member">+ getTotalMarks(): double</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- OOP Implementation Details Breakdown -->
+          <div class="oop-details-grid">
+            <div class="oop-detail-box">
+              <h5><i class="fa-solid fa-lock text-cyan"></i> 1. Encapsulation</h5>
+              <p>Implemented in <code>SubjectMarks</code> and <code>Student</code> using private fields, strict numerical validation range (0-100), and controlled accessor/mutator methods.</p>
+            </div>
+            <div class="oop-detail-box">
+              <h5><i class="fa-solid fa-sitemap text-indigo"></i> 2. Inheritance</h5>
+              <p><code>Student</code> inherits common personal properties (<code>id</code>, <code>name</code>, <code>email</code>) from the abstract base class <code>Person</code>.</p>
+            </div>
+            <div class="oop-detail-box">
+              <h5><i class="fa-solid fa-arrows-split-up-and-left text-violet"></i> 3. Polymorphism</h5>
+              <p>Achieved through <code>GradingStrategy</code> interface implementations, method overriding (<code>getRoleDescription()</code>), and <code>Comparable&lt;Student&gt;</code> natural rank ordering.</p>
+            </div>
+            <div class="oop-detail-box">
+              <h5><i class="fa-solid fa-layer-group text-amber"></i> 4. Abstraction</h5>
+              <p>Abstract <code>Person</code> class and <code>GradingStrategy</code> interface hide internal GPA formulas, evaluation logic, and validation complexity from callers.</p>
+            </div>
+          </div>
+
+          <!-- Java Execution Command Hint -->
+          <div class="java-cli-hint">
+            <div class="cli-hint-header"><i class="fa-solid fa-terminal"></i> Run via Java Command Line (CLI):</div>
+            <code>java -cp bin com.grademanagement.Main</code>
+          </div>
+        </div>
+
+        <div class="modal-footer">
+          <button class="btn btn-primary" id="closeOopModalFooterBtn">Close Architecture View</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- MODAL: Student Detailed Report Card / Transcript Modal -->
+    <div class="modal-backdrop" id="reportCardModal" aria-hidden="true">
+      <div class="modal-dialog report-card-modal-dialog">
+        <div class="modal-header">
+          <div class="modal-title-wrap">
+            <i class="fa-solid fa-certificate text-accent"></i>
+            <h3>Official Student Academic Transcript</h3>
+          </div>
+          <button class="modal-close-btn" id="closeReportModalBtn" aria-label="Close modal">&times;</button>
+        </div>
+
+        <div class="modal-body" id="printableReportCard">
+          <!-- Printable Report Card Header -->
+          <div class="transcript-header">
+            <div class="transcript-school-info">
+              <div class="school-seal"><i class="fa-solid fa-university"></i></div>
+              <div>
+                <h2>ACADEMIAPRO INTERNATIONAL ACADEMY</h2>
+                <p>Office of Academic Records &bull; Java OOP Evaluation Engine</p>
+                <span class="transcript-session">Academic Session: 2025 – 2026 &bull; Term: Final Examination</span>
+              </div>
+            </div>
+            <div class="transcript-badge-verified">
+              <i class="fa-solid fa-circle-check"></i> VERIFIED TRANSCRIPT
+            </div>
+          </div>
+
+          <!-- Student Profile Summary -->
+          <div class="transcript-student-grid" id="transcriptStudentInfo">
+            <!-- Dynamic data will be injected here -->
+          </div>
+
+          <!-- Transcript Marks Breakdown Table -->
+          <div class="transcript-marks-wrap">
+            <table class="transcript-table">
+              <thead>
+                <tr>
+                  <th>Course / Subject</th>
+                  <th class="text-center">Max Marks</th>
+                  <th class="text-center">Marks Obtained</th>
+                  <th class="text-center">Percentage</th>
+                  <th class="text-center">Grade Point</th>
+                  <th class="text-center">Letter Grade</th>
+                  <th class="text-center">Performance Remarks</th>
+                </tr>
+              </thead>
+              <tbody id="transcriptTableBody">
+                <!-- Subject rows dynamically populated -->
+              </tbody>
+              <tfoot>
+                <tr class="transcript-totals-row">
+                  <th>Grand Total & Overall Standing</th>
+                  <th class="text-center">500</th>
+                  <th class="text-center" id="transcriptGrandTotal">0</th>
+                  <th class="text-center" id="transcriptGrandPercent">0%</th>
+                  <th class="text-center" id="transcriptGrandCgpa">0.0</th>
+                  <th class="text-center" id="transcriptGrandGrade">—</th>
+                  <th class="text-center" id="transcriptGrandStatus">—</th>
+                </tr>
+              </tfoot>
+            </table>
+          </div>
+
+          <!-- Transcript Analytics & Remarks Strip -->
+          <div class="transcript-remarks-strip">
+            <div class="remark-box">
+              <span class="remark-label">Evaluator's Remarks:</span>
+              <p class="remark-content" id="transcriptEvaluatorRemarks">Exemplary academic dedication and outstanding performance across all disciplines.</p>
+            </div>
+            <div class="standing-box" id="transcriptStandingBadge">
+              <!-- Standing Badge -->
+            </div>
+          </div>
+
+          <!-- Signatures Section -->
+          <div class="transcript-signatures">
+            <div class="sig-block">
+              <div class="sig-line"></div>
+              <span>Class Teacher's Signature</span>
+            </div>
+            <div class="sig-block">
+              <div class="sig-line"></div>
+              <span>Head of Examination Board</span>
+            </div>
+            <div class="sig-block">
+              <div class="sig-stamp"><i class="fa-solid fa-stamp"></i> OFFICIAL SEAL</div>
+              <span>Principal / Dean</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="modal-footer">
+          <button class="btn btn-outline" id="closeReportModalFooterBtn">Close</button>
+          <button class="btn btn-primary" id="printReportCardBtn">
+            <i class="fa-solid fa-print"></i> Print / Download Transcript
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- MODAL: Edit Student Profile & Marks Modal -->
+    <div class="modal-backdrop" id="editStudentModal" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-header">
+          <div class="modal-title-wrap">
+            <i class="fa-solid fa-pen-to-square text-accent"></i>
+            <h3>Edit Student Record & Marks</h3>
+          </div>
+          <button class="modal-close-btn" id="closeEditModalBtn" aria-label="Close modal">&times;</button>
+        </div>
+        <form id="editStudentForm">
+          <div class="modal-body">
+            <input type="hidden" id="editStudentId" />
+            
+            <div class="form-row">
+              <div class="form-group flex-2">
+                <label for="editName">Student Full Name <span class="req">*</span></label>
+                <input id="editName" type="text" required />
+              </div>
+              <div class="form-group flex-1">
+                <label for="editRoll">Roll Number <span class="req">*</span></label>
+                <input id="editRoll" type="text" required />
+              </div>
+            </div>
+
+            <div class="form-row">
+              <div class="form-group flex-1">
+                <label for="editClass">Class / Section</label>
+                <input id="editClass" type="text" />
+              </div>
+              <div class="form-group flex-1">
+                <label for="editAttendance">Attendance (%)</label>
+                <input id="editAttendance" type="number" min="0" max="100" />
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label for="editEmail">Email Address</label>
+              <input id="editEmail" type="email" />
+            </div>
+
+            <h4 class="edit-subject-heading"><i class="fa-solid fa-graduation-cap"></i> Subject Scores (0 to 100)</h4>
+            <div class="subject-inputs-grid">
+              <div class="form-group subject-box">
+                <label for="editMath">Mathematics</label>
+                <input id="editMath" class="mark-input" type="number" min="0" max="100" step="0.5" required />
+              </div>
+              <div class="form-group subject-box">
+                <label for="editScience">Science</label>
+                <input id="editScience" class="mark-input" type="number" min="0" max="100" step="0.5" required />
+              </div>
+              <div class="form-group subject-box">
+                <label for="editEnglish">English</label>
+                <input id="editEnglish" class="mark-input" type="number" min="0" max="100" step="0.5" required />
+              </div>
+              <div class="form-group subject-box">
+                <label for="editComputer">Comp Sci</label>
+                <input id="editComputer" class="mark-input" type="number" min="0" max="100" step="0.5" required />
+              </div>
+              <div class="form-group subject-box">
+                <label for="editSocial">Social Studies</label>
+                <input id="editSocial" class="mark-input" type="number" min="0" max="100" step="0.5" required />
+              </div>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-outline" id="closeEditModalFooterBtn">Cancel</button>
+            <button type="submit" class="btn btn-primary">
+              <i class="fa-solid fa-check"></i> Save Changes
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <!-- Toast Notification Container -->
+    <div id="toastContainer" class="toast-container" aria-live="polite"></div>
+
+    <!-- Main JavaScript Logic -->
     <script src="script.js" defer></script>
   </body>
 </html>

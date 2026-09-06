@@ -1,0 +1,12 @@
+# Java Build Artifacts
+bin/
+*.class
+
+# Node / Temporary
+node_modules/
+.codex-build/
+.codex-finalizer/
+output/
+report_render/
+.DS_Store
+Thumbs.db
